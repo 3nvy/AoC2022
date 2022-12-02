@@ -7,28 +7,27 @@ const input = readInput({
       row
         .replace(/[A]/g, 1)
         .replace(/[B]/g, 2)
-        .replace(/[C]/g, 3)
+        .replace(/[C_Y]/g, 3)
         .replace(/[X]/g, 0)
-        .replace(/[Y]/g, 3)
         .replace(/[Z]/g, 6)
     ), // Replace letters with their respective weight
 });
 
 // Calculate next hand taking extremities into account
-const getRightHandWeight = (oponentHand, myHand) => {
+const getBestHand = (oponentHand, myHand) => {
   const rightHand = oponentHand + myHand;
-  if (rightHand > 3) return 1;
-  else if (rightHand < 1) return 3;
-  else return rightHand;
+  return rightHand > 3 ? 1 : rightHand < 1 ? 3 : rightHand;
 };
 
 const result = input.reduce((acc, round) => {
   const [elfScore, requiredHand] = round.split(" ").map((i) => +i);
 
-  const myScore = getRightHandWeight(elfScore, !requiredHand ? -1 : requiredHand === 6 ? 1 : 0)
+  const myScore = getBestHand(
+    elfScore,
+    !requiredHand ? -1 : requiredHand === 6 ? 1 : 0
+  );
 
   return acc + requiredHand + myScore;
-
 }, 0);
 
-console.log(result);
+console.log(result); //15442

@@ -14,16 +14,12 @@ const result = input.reduce((acc, round) => {
   const roundResult = elfScore - myScore;
 
   // Round ended up in a draw
-  if(!roundResult) return acc +  3 + myScore;
-
+  if (!roundResult) return acc + 3 + myScore;
   // Round ends up with you lost
-  // Logic being that the difference is either 1, which implies the gnome has used a higher hand, 
-  // or -2 with us having a higher weight hand but lower in value to the next one (Rock < Scissor)
-  else if(roundResult === 1 || roundResult === -2 && myScore > elfScore) return acc + 0 + myScore 
-
+  // Logic being that the difference is either 1, which implies the gnome has used a higher hand, or -2 (Rock < Scissor)
+  else if (roundResult === 1 || roundResult === -2) return acc + 0 + myScore;
   // Round ends up with you winning
-  else return acc + 6 + myScore
-
+  else return acc + 6 + myScore;
 }, 0);
 
-console.log(result);
+console.log(result); //15422
