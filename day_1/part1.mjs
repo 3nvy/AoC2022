@@ -2,6 +2,7 @@ import { readInput } from "../utils.mjs";
 
 const input = readInput({
   filePath: "day_1/input.txt",
+  devideByGroup: true,
   parseFn: (input) => input.map((is) => is.split("\n").map((i) => +i)),
 });
 
