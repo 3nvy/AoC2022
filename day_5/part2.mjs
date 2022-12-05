@@ -44,9 +44,12 @@ const [piles, instructions] = readInput({
 for (let instruction of instructions) {
   const [tilesToMove, pileFromIdx, pileToIdx] = instruction;
 
-  for (let i = 0; i < tilesToMove; i++) {
-    piles[pileToIdx - 1].push(piles[pileFromIdx - 1].pop());
-  }
+  const valuesToMove = piles[pileFromIdx - 1].splice(
+    piles[pileFromIdx - 1].length - tilesToMove,
+    piles[pileFromIdx - 1].length
+  );
+
+  piles[pileToIdx - 1].push(...valuesToMove);
 }
 
 const result = piles.reduce((acc, pile) => acc + pile.pop(), "");
