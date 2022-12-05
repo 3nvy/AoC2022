@@ -8,21 +8,16 @@ const [piles, instructions] = readInput({
    * Initialize the piles with the initial graph from the input
    */
   parseFn: (input) => {
-    const initialGraph = input[0]
-      .map((row) =>
-        row
-          .replaceAll(/ {4}/gm, ".")
-          .replaceAll(/[ \[\]]/g, "")
-          .split("")
-      )
-      .slice(0, -1);
+    const graphSize = +input[0].pop().at(-2);
 
-    const piles = initialGraph.reduce(
-      (acc, pileValues) => {
-        pileValues.forEach((pv, idx) => pv !== "." && acc[idx].unshift(pv));
+    const piles = input[0].reduce(
+      (acc, row) => {
+        for (let i = 1; i < row.length; i += 4)
+          if (row.at(i).trim()) acc[Math.floor(i / 4)].unshift(row.at(i));
+
         return acc;
       },
-      Array(initialGraph[0].length)
+      Array(graphSize)
         .fill(null)
         .map(() => [])
     );
