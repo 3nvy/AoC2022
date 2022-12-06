@@ -26,4 +26,4 @@ for (let i = 0; i < code.length; i++) {
   }
 }
 
-console.log(markerIndex); //15422
+console.log(markerIndex); //1702
