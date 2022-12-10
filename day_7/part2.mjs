@@ -34,7 +34,7 @@ const getPathSize = (path, criteriaSizes) => {
     else totalForPath += sizeOrPath;
   }
 
-  if (totalForPath <= 100000) criteriaSizes.push(totalForPath);
+  criteriaSizes.push(totalForPath);
   return totalForPath;
 };
 
@@ -54,6 +54,11 @@ for (let log of input) {
 }
 
 const criteriaSizes = [];
-getPathSize(folderTree["/"], criteriaSizes);
+const fileSystemSize = getPathSize(folderTree["/"], criteriaSizes);
 
-console.log(criteriaSizes.reduce((acc, size) => acc + size, 0)); // 1206825
+const neededFreeSpace = fileSystemSize - (70000000 - 30000000);
+
+const candidatesForRelease = criteriaSizes.filter(
+  (size) => size >= neededFreeSpace
+);
+console.log(Math.min(...candidatesForRelease)); //9608311
